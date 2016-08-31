@@ -195,6 +195,7 @@ public class YzrController {
             	rec_title.add("No.1");
             }else{
 	            rec_genre_movie = movie_service.getMovie(gn);
+
 	            genre = genre_service.getMovie_genre(rec_genre_movie.getMovie_id());
 	            rec_title.add("¿Â∏£&nbsp<&nbsp" + genre + "&nbsp>");
             }

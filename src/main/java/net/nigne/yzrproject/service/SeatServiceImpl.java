@@ -38,16 +38,16 @@ public class SeatServiceImpl implements SeatService {
 
 	@Override
 	public List<Integer> getPrimary(String theaterId, String plexNum, String seat1, String seat2, String seat3,
-								 String seat4, String seat5, String seat6, String seat7, String seat8) {
+								 String seat4, String seat5, String seat6, String seat7, String seat8, String startTime) {
 		// TODO Auto-generated method stub
-		return dao.getPrimary(theaterId, plexNum, seat1, seat2, seat3, seat4, seat5, seat6, seat7, seat8);
+		return dao.getPrimary(theaterId, plexNum, seat1, seat2, seat3, seat4, seat5, seat6, seat7, seat8, startTime);
 	}
 
 	@Override
 	public List<String> getReservationExist(String theaterId, String plexNum, String seat1, String seat2, String seat3,
-			String seat4, String seat5, String seat6, String seat7, String seat8) {
+			String seat4, String seat5, String seat6, String seat7, String seat8, String startTime) {
 		// TODO Auto-generated method stub
-		return dao.getReservationExist(theaterId, plexNum, seat1, seat2, seat3, seat4, seat5, seat6, seat7, seat8);
+		return dao.getReservationExist(theaterId, plexNum, seat1, seat2, seat3, seat4, seat5, seat6, seat7, seat8, startTime);
 	}
 
 	@Transactional(rollbackFor=Exception.class)

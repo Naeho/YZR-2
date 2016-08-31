@@ -22,7 +22,14 @@
 								<font size="6px">로맨스 클럽</font>
 							</span> 
 							<span>
-								<button class="btn btn-info" style="margin-left: 220px; margin-top20px; width: 100px; height:40px;">가입하기</button>
+								<c:choose>
+									<c:when test="${membervo.club == '로맨스'}">
+										<button class="btn btn-danger" style="margin-left: 220px; margin-top20px; width: 100px; height:40px;">탈퇴하기</button>
+									</c:when>
+									<c:otherwise>
+										<button class="btn btn-info" style="margin-left: 220px; margin-top20px; width: 100px; height:40px;">가입하기</button>
+									</c:otherwise>
+								</c:choose>
 							</span>
 						</div>
 						<div >
@@ -39,7 +46,14 @@
 								<font size="6px">액션 클럽</font>
 							</span> 
 							<span>
-								<button class="btn btn-info" style="margin-left: 250px; margin-top20px; width: 100px; height:40px;">가입하기</button>
+								<c:choose>
+									<c:when test="${membervo.club == '액션'}">
+										<button class="btn btn-danger" style="margin-left: 220px; margin-top20px; width: 100px; height:40px;">탈퇴하기</button>
+									</c:when>
+									<c:otherwise>
+										<button class="btn btn-info" style="margin-left: 220px; margin-top20px; width: 100px; height:40px;">가입하기</button>
+									</c:otherwise>
+								</c:choose>
 							</span>
 						</div>
 						<div >
@@ -57,9 +71,16 @@
 						<span> 
 							<font size="6px">VIP 클럽</font> 
 						</span> 
-						<span>
-							<button class="btn btn-info" style="margin-left: 260px; margin-top20px; width: 100px; height:40px;">가입하기</button>
-						</span>
+							<span>
+								<c:choose>
+									<c:when test="${membervo.club == 'VIP'}">
+										<button class="btn btn-danger" style="margin-left: 220px; margin-top20px; width: 100px; height:40px;">탈퇴하기</button>
+									</c:when>
+									<c:otherwise>
+										<button class="btn btn-info" style="margin-left: 220px; margin-top20px; width: 100px; height:40px;">가입하기</button>
+									</c:otherwise>
+								</c:choose>
+							</span>
 					</div>
 					<div >
 						<span style="margin-top:15px; margin-left:30px;"> 2016-01-01 ~ 2016-12-31</span>
@@ -75,9 +96,16 @@
 						<span> 
 							<font size="6px">특별관 클럽</font>
 						</span> 
-						<span>
-							<button class="btn btn-info" style="margin-left: 220px; margin-top20px; width: 100px; height:40px;">가입하기</button>
-						</span>
+							<span>
+								<c:choose>
+									<c:when test="${membervo.club == '특별관'}">
+										<button class="btn btn-danger" style="margin-left: 220px; margin-top20px; width: 100px; height:40px;">탈퇴하기</button>
+									</c:when>
+									<c:otherwise>
+										<button class="btn btn-info" style="margin-left: 220px; margin-top20px; width: 100px; height:40px;">가입하기</button>
+									</c:otherwise>
+								</c:choose>
+							</span>
 					</div>
 					<div >
 						<span style="margin-top:15px; margin-left:30px;"> 2016-01-01 ~ 2016-12-31</span>
@@ -178,7 +206,7 @@
 									<c:choose>	
 										<c:when test="${membervo.club == null || membervo.club == 'no' || membervo.club != 'VIP'}">
 											<input type="button" id="clubbutton" class="btn btn-danger" data-dismiss="modal"
-												onclick="club('vip')" value="가입" style="width: 196px;" />
+												onclick="club('VIP')" value="가입" style="width: 196px;" />
 										</c:when>
 										<c:when test="${membervo.club == 'VIP'}">
 											<input type="button" id="clubbutton" class="btn btn-danger" data-dismiss="modal"
@@ -674,13 +702,14 @@
 <div id="dialog" title="가입오류">
 ${membervo.club } 클럽에 가입되어 있습니다.
 </div>
+
 <script>
 
 var member_id = "${member_id}";
 var member_club = "${membervo.club}";
 
 function club(club){
-	if(member_club =='no' && club != 'no'){
+	if(member_club == null || member_club == 'no' || member_club == ''){
 		$.ajax({
 				type : 'put',
 				url : '/club/'+member_id+'/'+club ,
@@ -694,7 +723,7 @@ function club(club){
 					}
 				}
 			});
-	}else if(member_club !='no' && club == 'no'){
+	}else if(member_club != null &&  club == 'no'){
 		$.ajax({
 				type : 'put',
 				url : '/club/'+member_id+'/'+club ,
@@ -719,6 +748,36 @@ $(function(){
     //$("#dialog").dialog();
     
     $("#dialog").dialog({
+        autoOpen:false, //자동으로 열리지않게
+        //"center", "left", "right", "top", "bottom"
+        modal:true, //모달대화상자
+        buttons:{
+			"확인":function(){
+                $(this).dialog("close");
+            }
+        }
+    }).prev(".ui-dialog-titlebar").css("background","#222222");
+    $("#dialog").dialog().prev(".ui-dialog-titlebar").css("color","white");
+});
+$(function(){
+    //$("#dialog").dialog();
+    
+    $("#dialog1").dialog({
+        autoOpen:false, //자동으로 열리지않게
+        //"center", "left", "right", "top", "bottom"
+        modal:true, //모달대화상자
+        buttons:{
+			"확인":function(){
+                $(this).dialog("close");
+            }
+        }
+    }).prev(".ui-dialog-titlebar").css("background","#222222");
+    $("#dialog").dialog().prev(".ui-dialog-titlebar").css("color","white");
+});
+$(function(){
+    //$("#dialog").dialog();
+    
+    $("#dialog2").dialog({
         autoOpen:false, //자동으로 열리지않게
         //"center", "left", "right", "top", "bottom"
         modal:true, //모달대화상자

@@ -43,7 +43,14 @@ th{
 		<tr>
 			<th>처리상태</th>
 			<td colspan="3">
-				${rentvo.complete }
+				<c:choose>
+					<c:when test="${rentvo.complete == 'n' || rentvo.complete == 'N'}">
+						<font style='font-weight: bold; color: red;'>처리중</font>
+					</c:when>
+					<c:otherwise>
+						<font style='font-weight: bold; color: blue;'>완료</font>
+					</c:otherwise>
+				</c:choose>
 			</td>
 		</tr>
 		<tr>

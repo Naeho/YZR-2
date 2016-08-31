@@ -52,7 +52,7 @@
 	</div>
 	
 	<form id="pwSearch" name="pwSearch" action="/user/pwFind"  method="post">
-		<table class="table" style="width:540px;" >
+		<table class="table" style="width:420px;" >
 			<tr>
 				<th>아이디</th>
 				<td><input type="text" id="member_id" class="form-control" name="member_id"></td>
@@ -62,19 +62,17 @@
 				<td>
 					<select id="question" name="question" class="form-control" >
 						<option value="">질문을 선택하세요</option>
-						<option value="첫번째로 사용했던 핸드폰 배터리 용량은?">첫번째로 사용했던 핸드폰 배터리 용량은?</option>
-						<option value="내가 다닌 컴퓨터학원 데스크 직원 이름은?">내가 다닌 컴퓨터학원 데스크 직원 이름은?</option>
-						<option value="가장 감명깊게 읽은 책의 총페이지수는">가장 감명깊게 읽은 책의 총페이지수는?</option>
-						<option value="다녔던 고등학교의 교가 작곡가는?">다녔던 고등학교의 교가 작곡가는?</option>
-						<option value="가장 친한친구의 아버지 또는 어머니의 발사이즈는?">가장 친한친구의 아버지 또는 어머니의 발사이즈는?</option>
+							<option value="아버지 또는 어머니 성함은?">아버지 또는 어머니 성함은?</option>
+							<option value="내가 다닌 고등학교는?">내가 다닌 고등학교는?</option>
+							<option value="가장 감명깊게 읽은 책 제목은?">가장 감명깊게 읽은 책 제목은?</option>
+							<option value="좋아하는 스포츠는?">좋아하는 스포츠는?</option>
+							<option value="가장 친한친구의 이름은?">가장 친한친구의 이름은?</option>
 					</select>
 				</td>
-				<td id="checkQuestion"></td>
 			</tr>
 			<tr>
 				<th>비밀번호찾기 답변</th>
 				<td><input type="text" id="answer" name="answer" class="form-control" ></td>
-				<td id="checkAnswer"></td>
 			</tr>
 		</table>
 		<input type="button" onclick="pwCheck()" class="btn btn-danger btn-lg" value="확인" >

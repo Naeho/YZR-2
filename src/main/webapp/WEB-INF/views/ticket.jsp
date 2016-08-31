@@ -3061,7 +3061,8 @@
 			
 			if(reservationFlag == true) {
 				
-				tempReservationSeat();
+				//tempReservationSeat();
+				
 				
 				var memberId = '${member_id}';
 				var payMethod = $("#payMethod").val();
@@ -3081,6 +3082,17 @@
 						seatAll	+= ', ';
 					}
 				}
+				
+				reservationSeat();
+
+				reservationCodeInput();
+				
+				if(couponApply){
+					couponUsed();
+				}
+				pointAdder(pay/100);
+				movieViewAdder(movieId, totalSeat);
+				goLastpage();
 
 				var IMP = window.IMP;
 				IMP.init('iamport');

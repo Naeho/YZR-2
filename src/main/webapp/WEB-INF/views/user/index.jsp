@@ -47,7 +47,7 @@
 <script>
 
 	$(document).ready(function(){
-		$('#grade').popover({title: "등급", content: "1000점 일반<br>5000점 골드", trigger: "hover", html: true});
+		$('#grade').popover({title: "등급", content: "1000점 실버<br>2000점 골드<br>3000점 플래티넘<br>4000점 다이아몬드<br>5000점 마스터<br>6000점 챌린져", trigger: "hover", html: true});
 	});
 	
 	function setReservationList(r,rm,rt){
@@ -90,13 +90,8 @@
 									+ '<span class="reservationInfo">결제</span>'
 									+ '<span style="height:20px; display: block; margin-left: 181px;">'+ this.pay_method + '&nbsp/&nbsp' + this.pay + '원</span>'
 									+ '</div>'
-									+ '<div style="height: 140px; line-height: 130px; width: 288px; text-align: center; float: left;">';
-							
-							if(this.start_time > "${today}"){
-								result += '<span style="display: inline-block; margin-top: 48px; margin-left: 20px;"><button class="btn btn-danger" onclick="deleteReservation(\'' + this.reservation_code+ '\')">예매취소</button></span>';
-							}
-							
-							result += '</div>';
+									+ '<div style="height: 140px; line-height: 130px; width: 288px; text-align: center; float: left;">'
+								    + '</div>';
 						}
 						
 					}

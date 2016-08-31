@@ -14,28 +14,25 @@
 </head>
 <body>
 <style>
-body {
-	color: #000;
-}
-
-font {
-	color: black;
-}
-
-.navbar-header {
-	width: 100%;
-	text-align: center;
-}
-
-.navbar-header>li {
-	float: none;
-	display: inline-block;
-}
-
-.navbar-default .navbar-nav>.open>a, .navbar-default .navbar-nav>.open>a:hover,
-	.navbar-default .navbar-nav>.open>a:focus {
-	color: black;
-	background-color: ivory;
+	
+	font {
+		color: black;
+	}
+	
+	.navbar-header {
+		width: 100%;
+		text-align: center;
+	}
+	
+	.navbar-header>li {
+		float: none;
+		display: inline-block;
+	}
+	
+	.navbar-default .navbar-nav>.open>a, .navbar-default .navbar-nav>.open>a:hover,
+		.navbar-default .navbar-nav>.open>a:focus {
+		color: black;
+		background-color: ivory;
 }
 </style>
 	<div style="position: relative;">

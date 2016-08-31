@@ -70,7 +70,7 @@ public class SeatDAOImpl implements SeatDAO {
 
 	@Override
 	public List<Integer> getPrimary(String theaterId, String plexNum, String seat1, String seat2, String seat3, 
-								   String seat4, String seat5, String seat6, String seat7, String seat8) {
+								   String seat4, String seat5, String seat6, String seat7, String seat8, String startTime) {
 		CriteriaBuilder cb = entityManager.getCriteriaBuilder();
 		CriteriaQuery<Integer> mainQuery = cb.createQuery(Integer.class);
 		Root<SeatVO> mainQueryroot = mainQuery.from(SeatVO.class);
@@ -92,18 +92,23 @@ public class SeatDAOImpl implements SeatDAO {
 		try{
 			for(int i = 0; i < 8; i++) {
 				if(seat[i] != ""){
+					System.out.println("¹øÂ° = " + i);
 					SeatIndex = seat[i].substring(0,1);
 					SeatNumber = Integer.parseInt(seat[i].substring(1));
+					System.out.println("Index = " + SeatIndex);
+					System.out.println("Number = " + SeatNumber);
+					System.out.println("theaterId = " + theaterId);
+					System.out.println("plexNum = " + plexNum);
+					System.out.println("startTime = " + startTime);
 					mainQuery.select(mainQueryroot.get("no"));
 					mainQuery.where(cb.equal(mainQueryroot.get("plex_number"), plexNum),
 									cb.equal(mainQueryroot.get("theater_id"), theaterId),
 									cb.equal(mainQueryroot.get("seat_index"), SeatIndex),
-									cb.equal(mainQueryroot.get("seat_number"), SeatNumber));
+									cb.equal(mainQueryroot.get("seat_number"), SeatNumber),
+									cb.equal(mainQueryroot.get("start_time"), startTime));
 	
 					TypedQuery<Integer> tq = entityManager.createQuery(mainQuery);
-					//System.out.println("SingleResult = " + tq.getSingleResult());
 					list.add(tq.getSingleResult());
-					
 
 				}
 			}
@@ -116,7 +121,7 @@ public class SeatDAOImpl implements SeatDAO {
 
 	@Override
 	public List<String> getReservationExist(String theaterId, String plexNum, String seat1, String seat2, String seat3,
-			String seat4, String seat5, String seat6, String seat7, String seat8) {
+			String seat4, String seat5, String seat6, String seat7, String seat8, String startTime) {
 		// TODO Auto-generated method stub
 		String seat[] = new String[8];
 		seat[0] = seat1;
@@ -145,7 +150,8 @@ public class SeatDAOImpl implements SeatDAO {
 					mainQuery.where(cb.equal(mainQueryroot.get("plex_number"), plexNum),
 									cb.equal(mainQueryroot.get("theater_id"), theaterId),
 									cb.equal(mainQueryroot.get("seat_index"), SeatIndex),
-									cb.equal(mainQueryroot.get("seat_number"), SeatNumber));
+									cb.equal(mainQueryroot.get("seat_number"), SeatNumber),
+									cb.equal(mainQueryroot.get("start_time"), startTime));
 	
 					TypedQuery<String> tq = entityManager.createQuery(mainQuery);
 					//System.out.println("SingleResult = " + tq.getSingleResult());

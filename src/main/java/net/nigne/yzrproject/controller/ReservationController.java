@@ -110,6 +110,7 @@ public class ReservationController {
 			local.add(i,vo);
 			
 		}
+		
 		model.addAttribute("today", new Date());
 		model.addAttribute("movieList", movieList);
 		model.addAttribute("theaterList", theaterList);
@@ -129,6 +130,8 @@ public class ReservationController {
 							  @RequestParam("frm_movie_title2") String movie_title,
 							  @RequestParam("frm_plex_num2") String plex_num,
 							  @RequestParam("frm_start_time2") String start_time) throws Exception {
+		
+		System.out.println("movie_id = "+movie_id);
 		
 		HttpSession session= request.getSession();
 		session.setAttribute("menu", "RESERVATION");
@@ -167,6 +170,7 @@ public class ReservationController {
 		tempInfo.setTheater_name(theater_name);
 		tempInfo.setDataFlag(1);
 		
+		model.addAttribute("today", new Date());
 		model.addAttribute("movieList", movieList);
 		model.addAttribute("theaterList", theaterList);
 		model.addAttribute("localList", local);
@@ -215,6 +219,7 @@ public class ReservationController {
 		tempInfo.setMovie_title(movie_title);
 		tempInfo.setDataFlag(2);
 
+		model.addAttribute("today", new Date());
 		model.addAttribute("movieList", movieList);
 		model.addAttribute("theaterList", theaterList);
 		model.addAttribute("localList", local);
@@ -413,12 +418,12 @@ public class ReservationController {
 
 		
 		ResponseEntity<Map<String, Object>> entity = null;
-		
+		System.out.println("startTime = " + startTime);
 		try{
-			List<Integer> getPrimary = seatService.getPrimary(theaterId, plexNum, seat1, seat2, seat3, seat4, seat5, seat6, seat7, seat8);
+			List<Integer> getPrimary = seatService.getPrimary(theaterId, plexNum, seat1, seat2, seat3, seat4, seat5, seat6, seat7, seat8, startTime);
 			
 			int SeatNo = 0;
-			
+			System.out.println("SeatNo = " + SeatNo);
 			for(int i = 0; i < getPrimary.size(); i++){
 				SeatNo = getPrimary.get(i);
 				seatService.updateReservation(SeatNo);
@@ -460,7 +465,7 @@ public class ReservationController {
 		ResponseEntity<Map<String, Object>> entity = null;
 		
 		try{
-			List<Integer> getPrimary = seatService.getPrimary(theaterId, plexNum, seat1, seat2, seat3, seat4, seat5, seat6, seat7, seat8);
+			List<Integer> getPrimary = seatService.getPrimary(theaterId, plexNum, seat1, seat2, seat3, seat4, seat5, seat6, seat7, seat8, startTime);
 			
 			int SeatNo = 0;
 			
@@ -506,7 +511,7 @@ public class ReservationController {
 		ResponseEntity<Map<String, Object>> entity = null;
 		
 		try{
-			List<Integer> getPrimary = seatService.getPrimary(theaterId, plexNum, seat1, seat2, seat3, seat4, seat5, seat6, seat7, seat8);
+			List<Integer> getPrimary = seatService.getPrimary(theaterId, plexNum, seat1, seat2, seat3, seat4, seat5, seat6, seat7, seat8, startTime);
 			
 			int SeatNo = 0;
 			
@@ -599,7 +604,7 @@ public class ReservationController {
 		ResponseEntity<Map<String, Object>> entity = null;
 		
 		try{
-			List<String> list = seatService.getReservationExist(theaterId, plexNum, seat1, seat2, seat3, seat4, seat5, seat6, seat7, seat8);
+			List<String> list = seatService.getReservationExist(theaterId, plexNum, seat1, seat2, seat3, seat4, seat5, seat6, seat7, seat8, startTime);
 			
 			Map<String, Object> map = new HashMap<>();
 			map.put("l", list);

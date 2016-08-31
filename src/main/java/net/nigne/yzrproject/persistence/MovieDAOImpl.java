@@ -154,6 +154,8 @@ public class MovieDAOImpl implements MovieDAO {
 		subQuery.select(subQueryRoot.get("movie_id"));
 		subQuery.where(cb.equal(subQueryRoot.get("member_id"), member_id));
 		
+		// 抗寇贸府 备埃
+		
 		CriteriaQuery<String> resQuery = cb.createQuery(String.class);
 		Root<ReservationVO> resRootQuery = resQuery.from(ReservationVO.class);
 		resQuery.select(resRootQuery.get("movie_id"));
@@ -162,9 +164,8 @@ public class MovieDAOImpl implements MovieDAO {
 		TypedQuery<String> restq = entityManager.createQuery(resQuery);
 		List<String> res_movie_id = restq.getResultList();
 		
-		// 抗寇贸府 备埃
-		
 		List<MovieVO> actor_movie = null;
+		
 		if(res_movie_id.isEmpty()){
 			CriteriaQuery<MovieVO> Query = cb.createQuery(MovieVO.class);
 			Root<MovieVO> Root = Query.from(MovieVO.class);

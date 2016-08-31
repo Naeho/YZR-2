@@ -33,7 +33,6 @@
 		background-color:#bf4040; 
 		color:white; 
 		width:100px;
-		padding-top:50%;
 	}
 	h2{text-align:center;}
 	
@@ -51,7 +50,7 @@
 		<h2>회원정보 수정페이지</h2>
 		<br>
 		<form id="form" name="form" action="/user/member/edit" method="post">
-			<table class="table" style="width:500px;">
+			<table class="table" style="width:420px;">
 				<tr>
 					<th style="width:150px;" >아이디</th>
 					<td>${vo.getMember_id()}</td>
@@ -90,7 +89,6 @@
 				<tr>
 					<th>비밀번호찾기 답변</th>
 					<td><input type="text" id="answer" name="answer" class="form-control" value="${vo.getAnswer()}"></td>
-					<td id="checkAnswer"></td>
 				</tr>
 			</table>
 		</form>

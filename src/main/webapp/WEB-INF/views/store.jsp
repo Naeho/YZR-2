@@ -7,7 +7,7 @@
 		
 		<h2 id="menu_line" style="margin-top:10px;">
 			<div style="border-top:1px solid #000; border-bottom:1px solid #000; width:475px; height:5px; float:left; margin-top:22px;"></div>
-				<span style="float:left; font-size:50px;">M E N U</span>
+				<span style="float:left; font-size:48.5px;">M E N U</span>
 			<div style="border-top:1px solid #000; border-bottom:1px solid #000; width:475px; height:5px; float:left; margin-top:22px;"></div>
 		</h2>
 		

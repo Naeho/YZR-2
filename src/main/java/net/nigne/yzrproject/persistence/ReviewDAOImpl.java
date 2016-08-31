@@ -1,6 +1,5 @@
 package net.nigne.yzrproject.persistence;
 
-import java.sql.Timestamp;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.List;
@@ -11,16 +10,9 @@ import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Predicate;
 import javax.persistence.criteria.Root;
-
 import org.springframework.stereotype.Repository;
-
-import net.nigne.yzrproject.domain.ActorVO;
 import net.nigne.yzrproject.domain.Criteria;
-import net.nigne.yzrproject.domain.MovieVO;
-import net.nigne.yzrproject.domain.DirectorVO;
-import net.nigne.yzrproject.domain.EmpVO;
 import net.nigne.yzrproject.domain.GenreVO;
-import net.nigne.yzrproject.domain.GpaVO;
 import net.nigne.yzrproject.domain.ReplyVO;
 import net.nigne.yzrproject.domain.ReviewVO;
 

@@ -120,7 +120,7 @@
       <div id="hold_img1" style="clear:both; margin-top:25px; float:left; height:380px;">
          <c:forEach items="${event_list}" var="event_list" begin="0" end="2">
             <div style="width:320px; height:300px; float:left; margin-left:43px;">
-               <a href="/support/notice/read/${ event_list.no }"><img style="width:320px; height:300px;" src="/resources/images/notice/${event_list.notice_image}"></a>
+               <a href="/support/notice/read/${ event_list.no }"><img style="width:320px; height:350px;" src="/resources/images/notice/${event_list.notice_image}"></a>
                <div style="margin-top:5px; width:320px;">
                   <span style="color:#4374D9; font-weight:bold;">스페셜 이벤트</span> <br/>
                   <span style="font-size:12px;">${event_list.notice_title}</span> <br/>
@@ -129,7 +129,7 @@
             </div>
          </c:forEach>
          <c:if test="${fn:length(event_list) > 3}">
-            <button type="button" id="more_btn" onclick="more()" style="float:right; margin-top:75px; margin-right:18px; border:0; background-color:white;">
+            <button type="button" id="more_btn" onclick="more()" style="float:right; margin-top:105px; margin-right:18px; border:0; background-color:white;">
                <i class="fa fa-plus-square fa-1x" aria-hidden="true" style="color:gray;">
                </i>
                <span style="font-weight:bold; font-size:15px;">
@@ -142,7 +142,6 @@
 </div>
 
 <script type="text/javascript">
-
     $(document).ready(function() {
         $('#notice').carousel('cycle');
     });
@@ -209,6 +208,7 @@
 </script>
          
 <style>
+   
    #event_li{
       color:red;
       text-decoration: none;

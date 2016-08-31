@@ -15,9 +15,9 @@ public interface SeatDAO {
 	public void reservationCancel(int SeatNo);
 	
 	public List<Integer> getPrimary(String theaterId, String plexNum, String seat1, String seat2, String seat3, 
-									String seat4, String seat5, String seat6, String seat7, String seat8);
+									String seat4, String seat5, String seat6, String seat7, String seat8, String startTime);
 	public List<String> getReservationExist(String theaterId, String plexNum, String seat1, String seat2, String seat3, 
-									  String seat4, String seat5, String seat6, String seat7, String seat8);
+									  String seat4, String seat5, String seat6, String seat7, String seat8, String startTime);
 	
 	public Long getExtraSeatNum(String theaterId, String plexNum, String startTime);
 	public Long getExtraSeatTime(String theaterId, String plexNum, String date);

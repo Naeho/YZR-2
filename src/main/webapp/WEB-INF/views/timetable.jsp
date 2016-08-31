@@ -31,9 +31,9 @@
             <li class="lo_li" onclick="getTheater_list('경기')">경기</li>
             <li class="lo_li" onclick="getTheater_list('인천')">인천</li>
             <li class="lo_li" onclick="getTheater_list('강원')">강원</li>
-            <li class="lo_li" onclick="getTheater_list('대전|충청')">대전/충청</li>
-            <li class="lo_li" onclick="getTheater_list('광주|전라')">광주/전라</li>
-            <li class="lo_li" onclick="getTheater_list('대구|울산|부산')">대구/울산/부산</li>
+            <li class="lo_li" onclick="getTheater_list('대전/충청')">대전/충청</li>
+            <li class="lo_li" onclick="getTheater_list('광주/전라')">광주/전라</li>
+            <li class="lo_li" onclick="getTheater_list('대구/울산/부산')">대구/울산/부산</li>
             <li class="lo_li" onclick="getTheater_list('경상')">경상</li>
             <li class="lo_li" onclick="getTheater_list('제주')">제주</li>
          </ul>
@@ -70,16 +70,6 @@
       </div>
       
       <div style="border:1px solid #000; margin-top:25px; clear:both; float:left; width:100%;"></div>
-      
-      <form class="frm" name="frm" action="/ticket" method="post">
-      	 <input type="hidden" id="frm_theater_areas" name="frm_theater_area2" value="" />
-         <input type="hidden" id="frm_theater_ids" name="frm_theater_id2" value="" />
-         <input type="hidden" id="frm_theater_names" name="frm_theater_name2" value="" />
-         <input type="hidden" id="frm_movie_ids" name="frm_movie_id2" value="" />
-         <input type="hidden" id="frm_movie_titles" name="frm_movie_title2" value="" />
-         <input type="hidden" id="frm_plex_nums" name="frm_plex_num2" value="" />
-         <input type="hidden" id="frm_start_times" name="frm_start_time2" value="" />
-      </form>
    </div>
 </div>
 
@@ -118,23 +108,31 @@
             + theater_list[i].theater_name
             + '</li>';
       }
-      
       document.getElementById("theater").innerHTML = result;
    }
    
-   function setTheater_name(theater_name, theater_id, theater_area){
-      document.getElementById("theater_name").innerHTML = theater_name;
-      document.getElementById("frm_theater_name").value = theater_name;
-      document.getElementById("theater_id").value = theater_id;
-      document.getElementById("frm_theater_area").value = theater_area;
-
-      viewDate();
-      $(".date_div").css("color", "black");
-      $("#0d").css("color", "red");
-      getTimetable(theater_id, $("#month0").val()+"-"+$("#day0").val());
+   if(day<10){
+      $("#theater_name").html("CGV강남");
+       $("#frm_theater_name").val("CGV강남");
+       $("#theater_id").val("T001");
+       $("#frm_theater_area").val("서울");
+       if(month<10){
+    	   getTimetable("T001", "0"+month+"-0"+day);  
+       }else if(month>=10){
+    	   getTimetable("T001", month+"-0"+day);
+       }
+       
+   }else if(day>=10){
+      $("#theater_name").html("CGV강남");
+       $("#frm_theater_name").val("CGV강남");
+       $("#theater_id").val("T001");
+       $("#frm_theater_area").val("서울");
+       if(month<10){
+    	   getTimetable("T001", "0"+month+"-"+day);
+       }else if(month>=10){
+      	   getTimetable("T001", month+"-"+day);
+       }
    }
-   
-   setTheater_name("CGV강남","T001","서울");
    
    function setViewDate(){
       var cal_date = "";
@@ -158,10 +156,11 @@
       
       document.getElementById("date_group").innerHTML = cal_date;
       $("#0d").css("color", "red");
-   }
-   setViewDate();
-   
-   $(document).ready(function(){
+  }
+  
+  setViewDate();   
+  
+  $(document).ready(function(){
       
       for(var a=0; a<5; a++){
          day = date.getDate();
@@ -227,6 +226,17 @@
       return date;
    }
    
+   function setTheater_name(theater_name, theater_id, theater_area){
+      document.getElementById("theater_name").innerHTML = theater_name;
+      document.getElementById("frm_theater_name").value = theater_name;
+      document.getElementById("theater_id").value = theater_id;
+      document.getElementById("frm_theater_area").value = theater_area;
+         
+      $(".date_div").css("color", "black");
+      $("#0d").css("color", "red");
+      
+      getTimetable(theater_id, $("#month0").val()+"-"+$("#day0").val());
+   }
    
    $(".date_div").click(function(){
       var cday = "";
@@ -235,7 +245,7 @@
       $(".date_div").css("color","black");
       $(this).css("color","red");
       var temp = $(this).attr('id').substring(0, 1);
-         cday = month + "-" + $("#day" + temp).val();
+         cday = $("#month"+temp).val() + "-" + $("#day" + temp).val();
          getTimetable(ti, cday);
    })
    
@@ -247,12 +257,6 @@
       $(this).css("color","red");
       setTheater_name(tn, ti, tl);
    })
-   
-   if(day<10){
-      getTimetable("T001", month+"-0"+day);
-   }else if(day>=10){
-      getTimetable("T001", month+"-"+day);
-   }   
    
    function getTimetable(theater_id, cday){
       $.ajax({
@@ -267,7 +271,7 @@
             "day" : cday   
          },
          success : function(tt){
-            setTimetable(tt.tt, tt.total);
+           setTimetable(tt.tt, tt.total);
             getMovieInfo(theater_id, cday);
             getMovieGenre(theater_id, cday);
             getPlexInfo(theater_id, cday);
@@ -282,15 +286,14 @@
       var plex = "";
       
       for(var a=0; a<total; a++){
-         plex += '<div class="movie_time" style="float:left; margin-top:15px;">'
-           + '<input type="hidden" id="frm_plex_num" name="frm_plex_num" value="'+tt[a][0].plex_number+'" />'
-            + '<input type="hidden" id="frm_movie_title" name="frm_movie_title" value="" />'
-            + '<input type="hidden" id="frm_movie_id" name="frm_movie_id" value="" />'
+         plex += '<div id="movie_time'+a+'" style="float:left; margin-top:15px;">'
             + '<div style="border-top:1px solid #000; margin-top:10px; width:1140px;">'
             + '</div>'
-            + '<div id="movie" style="float:left; margin-top:15px; margin-left:20px;">'
+            + '<div id="movie'+a+'" style="float:left; margin-top:15px; margin-left:20px;">'
             + '<div id="grade_circle'+a+'" style="float:left; border:1px solid white; border-radius:25px; width:30px; height:30px; text-align:center; padding-top:5px; color:white; font-size:10pt;">'
             + '</div>'
+            + '<input type="hidden" class="frm_movie_title'+a+'" name="frm_movie_title" value="" />'
+            + '<input type="hidden" class="frm_movie_id'+a+'" name="frm_movie_id" value="" />'
             + '<span id="movie_title'+a+'" style="margin-left:20px; font-size:20px;">'
             + '</span>'
             + '<span id="movie_status'+a+'" style="margin-left:10px; border:2px solid #6799FF; border-radius:3px; color:#6799FF; font-weight:bold; font-size:13px;">'
@@ -314,6 +317,7 @@
             + '</div>';
          $("#movie_place").html(plex);
       }
+
       
       var mor = '<i class="fa fa-sun-o fa-1x" aria-hidden="true" style="color:red"><span style="color:black; font-weight:bold;">조조</span></i>';
       var night = '<i class="fa fa-moon-o fa-1x" aria-hidden="true" style="color:blue"><span style="color:black; font-weight:bold;">심야</span></i>';
@@ -322,10 +326,8 @@
       for(var a=0; a<total; a++){
          timetable = "";   
          for(var b=0; b < tt[a].length; b++){
-
-            timetable += '<li class="time_li">'
-        
-               + '<form class="frm" name="frm" action="/ticket" method="post">'
+            timetable += '<li class="time_li cnone'+a+b+'">'
+        	   + '<form class="frm" name="frm" action="/ticket" method="post">'
                + '<input type="hidden" class="frm_theater_area2" name="frm_theater_area2" value="" />'
                + '<input type="hidden" class="frm_theater_id2" name="frm_theater_id2" value="" />'
                + '<input type="hidden" class="frm_theater_name2" name="frm_theater_name2" value="" />'
@@ -334,41 +336,51 @@
                + '<input type="hidden" class="frm_plex_num2" name="frm_plex_num2" value="" />'
                + '<input type="hidden" class="frm_start_time2" name="frm_start_time2" value="'+tt[a][b].start_time+'" />'
                + '</form>'
-               + '<span class="time" style="font-size:15px; display:block;">'
+               + '<a class="time" style="font-size:15px; display:block;">'
                + tt[a][b].start_time.substring(11,16)
-               + '</span>'
-               + '<input type="hidden" class="frm_start_time" value="'+tt[a][b].start_time+'" />'
-               + '<input type="hidden" class="frm_movie_title'+a+'" id="frm_movie_title" value="" />'
-               + '<input type="hidden" class="frm_movie_id'+a+'" id="frm_movie_id" value="" />'
-               + '<input type="hidden" class="frm_plex_num'+a+'" id="frm_plex_num" value="'+tt[a][0].plex_number+'" />'
-               + '<span id="pt'+a+b+'">'
+               + '</a>'
+               + '<span id="pt'+a+b+'" class="cnone'+a+b+'">'
                + '</span>'
                + '</li>';
          }
          $("#time_table"+a).html(timetable);
          
          for(var c=0; c < tt[a].length; c++){
-        	var tempHour = tt[a][c].start_time.substring(11,13); 
-            var today =  tt[a][c].start_time;
-            var min = date.getMinutes();
-            if(min<10){
-            	min = "0"+min;
-            }
-            var tempTime = date.getFullYear() + "-" + month + "-" + $("#day0").val() + " " + date.getHours() + ":" + min;
-            
-            if(tempHour > 06 && tempHour < 10){
-               $("#pt"+a+c).html(mor);
-            }else if(tempHour >= 10 && tempHour < 24){
-               $("#pt"+a+c).html(nor);
-            }else if(tempHour == 00 || (tempHour >= 01 && tempHour <= 06)){
-               $("#pt"+a+c).html(night);
-            }
-            
-            if(today < tempTime){
-            	$("#pt"+a+c).html("마감");
-            }
-         }
-         $(".frm_plex_num"+a).val(tt[a][0].plex_number);
+              var tempHour = tt[a][c].start_time.substring(11,13); 
+              var today =  tt[a][c].start_time;
+              var min = date.getMinutes();
+              var hour = date.getHours();
+              
+              if(hour<10){
+            	  hour = "0"+hour;
+              }
+              if(min<10){
+                 min = "0"+min;
+              }
+              
+              var tempTime = date.getFullYear() + "-" + $("#month0").val() + "-" + $("#day0").val() + " " + hour + ":" + min;
+              
+              if(tempHour > 06 && tempHour < 10){
+                 $("#pt"+a+c).html(mor);
+              }else if(tempHour >= 10 && tempHour < 24){
+                 $("#pt"+a+c).html(nor);
+              }else if(tempHour == 00 || (tempHour >= 01 && tempHour <= 06)){
+                 $("#pt"+a+c).html(night);
+              }
+              
+              if(today < tempTime){
+                 $("#pt"+a+c).html("마감");
+              }
+         
+              if($("#pt"+a+c).text() == "마감"){
+            	  $(".cnone"+a+c).css("display","none");
+            	  $(".cnone"+a+(c+1)).css("border-left","1px solid #BDBDBD");
+              }
+           	  
+              if($("#pt"+a+(tt[a].length-1)).text() == "마감"){
+                  $("#movie_time"+a).css("display","none");
+              }
+           }
       }
    }
    
@@ -413,15 +425,12 @@
          }
          $("#runtime"+i).html(movie_info[i].runtime + "분");
          $("#open_date"+i).html(movie_info[i].open_date);
-         
          mt = $("#movie_title"+i).parents("div .movie_time");
-
          fmt = $(mt).find("#frm_movie_title");
          fmi = $(mt).find("#frm_movie_id");
          
          fmt.val(movie_info[i].title);
          fmi.val(movie_info[i].movie_id);
-
       }
    }
    
@@ -474,41 +483,39 @@
       }
    }
 
-   function tt_submit(aa){
-     var asd = $(aa).parents("div .movie_time");
-
-      var frm_plex_num = $(asd).find("#frm_plex_num").val();
-      var frm_movie_title = $(asd).find("#frm_movie_title").val();
-      var frm_movie_id = $(asd).find("#frm_movie_id").val();
-
-      var time_li = aa.closest("li");
-
-      var frm_plex_num2 = $(time_li).find(".frm_plex_num2");
-      var frm_movie_id2 = $(time_li).find(".frm_movie_id2");
-      var frm_movie_title2 = $(time_li).find(".frm_movie_title2");
-      var frm_theater_area2 = $(time_li).find(".frm_theater_area2");
-      var frm_theater_id2 = $(time_li).find(".frm_theater_id2");
-      var frm_theater_name2 = $(time_li).find(".frm_theater_name2");
-      var frm_start_time2 = $(time_li).find(".frm_start_time2");
-      var frm= $(time_li).find(".frm");
-      frm_theater_area2.val($("#frm_theater_area").val());
-      frm_theater_id2.val($("#theater_id").val());
-      frm_theater_name2.val($("#frm_theater_name").val());
+   function tt_submit(tl){
+     var mt = $(tl).parents("div .movie_time");
       
-      frm_movie_id2.val(frm_movie_id);
-      frm_movie_title2.val(frm_movie_title);
-      frm_plex_num2.val(frm_plex_num);
-
+     var frm_plex_num = $(mt).find("#frm_plex_num").val();
+     var frm_movie_title = $(mt).find("#frm_movie_title").val();
+     var frm_movie_id = $(mt).find("#frm_movie_id").val();
+     var time_li = tl.closest("li");
+     var frm_plex_num2 = $(time_li).find(".frm_plex_num2");
+     var frm_movie_id2 = $(time_li).find(".frm_movie_id2");
+     var frm_movie_title2 = $(time_li).find(".frm_movie_title2");
+     var frm_theater_area2 = $(time_li).find(".frm_theater_area2");
+     var frm_theater_id2 = $(time_li).find(".frm_theater_id2");
+     var frm_theater_name2 = $(time_li).find(".frm_theater_name2");
+     var frm_start_time2 = $(time_li).find(".frm_start_time2");
+     var frm= $(time_li).find(".frm");
      
-      frm.submit();
+     frm_theater_area2.val($("#frm_theater_area").val());
+     frm_theater_id2.val($("#theater_id").val());
+     frm_theater_name2.val($("#frm_theater_name").val());
+     
+     frm_movie_id2.val(frm_movie_id);
+     frm_movie_title2.val(frm_movie_title);
+     frm_plex_num2.val(frm_plex_num);
+
+     frm.submit();
       
 
    }
 
  
    $("body").on("click", ".time_li", function(e){
-         tt_submit(e.target);
-      });
+        tt_submit(e.target);
+   });
 </script>
 
 <style>

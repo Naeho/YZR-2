@@ -1,7 +1,6 @@
 package net.nigne.yzrproject.persistence;
 
 import java.util.List;
-
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.TypedQuery;
@@ -9,18 +8,13 @@ import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Predicate;
 import javax.persistence.criteria.Root;
-
 import org.springframework.stereotype.Repository;
-
-import net.nigne.yzrproject.domain.LostVO;
 import net.nigne.yzrproject.domain.MemberVO;
-import net.nigne.yzrproject.domain.NoticeVO;
-import net.nigne.yzrproject.domain.SeatVO;
 
-@Repository // 이것은 왜?
+@Repository
 public class MemberDAOImpl implements MemberDAO {
 
-    @PersistenceContext // 이건 또 뭐야?
+    @PersistenceContext
 	private EntityManager entityManager;
 	
 	@Override
@@ -28,7 +22,6 @@ public class MemberDAOImpl implements MemberDAO {
 		entityManager.persist(vo);
 
 	}
-
 	@Override
 	public MemberVO select(String member_id) {
 		
@@ -176,22 +169,6 @@ public class MemberDAOImpl implements MemberDAO {
 			return check;
 		}
 	}
-	
-	
-	
-	@Override
-	public void update(String member_id) {
-		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
-	public MemberVO idSearchPost(String member_name, String email) {
-		// TODO Auto-generated method stub
-		
-		return null;
-	}
-	
 	@Override
 	public MemberVO getMember(String member_id) {
 		// TODO Auto-generated method stub
@@ -207,39 +184,39 @@ public class MemberDAOImpl implements MemberDAO {
 		
 		return list.get(0);
 	}
-
 	@Override
-	public void pointUpdate(String memberId, int point) {
-		// TODO Auto-generated method stub
-		
-		String grade = grade(point);
-															//primarykey
-		MemberVO memberVO = entityManager.find(MemberVO.class, memberId);
-		
-		MemberVO mergeVO = entityManager.merge(memberVO);
-		mergeVO.setPoint(point);
-		mergeVO.setGrade(grade);
-	}
-	
-	private String grade(int point) {
+	   public void pointUpdate(String memberId, int point) {
+	      // TODO Auto-generated method stub
+	      
+	      String grade = grade(point);
+	                                             //primarykey
+	      MemberVO memberVO = entityManager.find(MemberVO.class, memberId);
+	      
+	      MemberVO mergeVO = entityManager.merge(memberVO);
+	      mergeVO.setPoint(point);
+	      mergeVO.setGrade(grade);
+	   }
+	   
+	   private String grade(int point) {
 
-		String grade = "";
-		
-		if(point>=5000) {
-			grade = "다이아";
-		} else if(point>=4000) {
-			grade = "플래티넘";
-		} else if(point>=3000) {
-			grade = "골드";
-		} else if(point>=2000) {
-			grade = "실버";
-		} else if(point>=1000) {
-			grade = "브론즈";
-		} else {
-			grade = "노멀";
-		}
-		
-		return grade;
-	}
-
+	      String grade = "";
+	      
+	      if(point>=6000) {
+	         grade = "챌린져";
+	      } else if(point>=5000) {
+	         grade = "마스터";
+	      } else if(point>=4000) {
+	         grade = "다이아몬드";
+	      } else if(point>=3000) {
+	         grade = "플래티넘";
+	      } else if(point>=2000) {
+	         grade = "골드";
+	      } else if(point>=1000) {
+	         grade = "실버";
+	      } else {
+	         grade = "브론즈";
+	      }
+	      
+	      return grade;
+	   }
 }
