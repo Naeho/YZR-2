@@ -253,8 +253,6 @@
       var ti = $(this).attr("value");
       var tn = $(this).text();
       var tl = $("#frm_theater_area").val();
-      $(".th_name").css("color","white");
-      $(this).css("color","red");
       setTheater_name(tn, ti, tl);
    })
    
@@ -286,14 +284,14 @@
       var plex = "";
       
       for(var a=0; a<total; a++){
-         plex += '<div id="movie_time'+a+'" style="float:left; margin-top:15px;">'
+         plex += '<div id="movie_time'+a+'" class="movie_time" style="float:left; margin-top:15px;">'
             + '<div style="border-top:1px solid #000; margin-top:10px; width:1140px;">'
             + '</div>'
             + '<div id="movie'+a+'" style="float:left; margin-top:15px; margin-left:20px;">'
             + '<div id="grade_circle'+a+'" style="float:left; border:1px solid white; border-radius:25px; width:30px; height:30px; text-align:center; padding-top:5px; color:white; font-size:10pt;">'
             + '</div>'
-            + '<input type="hidden" class="frm_movie_title'+a+'" name="frm_movie_title" value="" />'
-            + '<input type="hidden" class="frm_movie_id'+a+'" name="frm_movie_id" value="" />'
+            + '<input type="hidden" class="frm_movie_title" name="frm_movie_title" value="" />'
+            + '<input type="hidden" class="frm_movie_id" name="frm_movie_id" value="" />'
             + '<span id="movie_title'+a+'" style="margin-left:20px; font-size:20px;">'
             + '</span>'
             + '<span id="movie_status'+a+'" style="margin-left:10px; border:2px solid #6799FF; border-radius:3px; color:#6799FF; font-weight:bold; font-size:13px;">'
@@ -308,7 +306,7 @@
             + tt[a][0].plex_number
             + '관 > <span id="seat_cnt'+a+'"></span>'
             + '</span>'
-            + '<input type="hidden" class="frm_plex_num'+a+'" name="frm_plex_num" value="" />'
+            + '<input type="hidden" class="frm_plex_num" name="frm_plex_num" value="" />'
             + '</i>'
             + '<br/>'
             + '<div id="time_table'+a+'">'
@@ -375,10 +373,11 @@
               if($("#pt"+a+c).text() == "마감"){
             	  $(".cnone"+a+c).css("display","none");
             	  $(".cnone"+a+(c+1)).css("border-left","1px solid #BDBDBD");
+            	  $("#pt"+a+(c+1)).css("border-left","0px");
               }
-           	  
+              
               if($("#pt"+a+(tt[a].length-1)).text() == "마감"){
-                  $("#movie_time"+a).css("display","none");
+            	  $("#movie_time"+a).css("display","none");
               }
            }
       }
@@ -426,8 +425,9 @@
          $("#runtime"+i).html(movie_info[i].runtime + "분");
          $("#open_date"+i).html(movie_info[i].open_date);
          mt = $("#movie_title"+i).parents("div .movie_time");
-         fmt = $(mt).find("#frm_movie_title");
-         fmi = $(mt).find("#frm_movie_id");
+
+         fmt = $(mt).find(".frm_movie_title");
+         fmi = $(mt).find(".frm_movie_id");
          
          fmt.val(movie_info[i].title);
          fmi.val(movie_info[i].movie_id);
@@ -486,9 +486,9 @@
    function tt_submit(tl){
      var mt = $(tl).parents("div .movie_time");
       
-     var frm_plex_num = $(mt).find("#frm_plex_num").val();
-     var frm_movie_title = $(mt).find("#frm_movie_title").val();
-     var frm_movie_id = $(mt).find("#frm_movie_id").val();
+     var frm_plex_num = $(mt).find(".frm_plex_num").val();
+     var frm_movie_title = $(mt).find(".frm_movie_title").val();
+     var frm_movie_id = $(mt).find(".frm_movie_id").val();
      var time_li = tl.closest("li");
      var frm_plex_num2 = $(time_li).find(".frm_plex_num2");
      var frm_movie_id2 = $(time_li).find(".frm_movie_id2");
@@ -506,7 +506,7 @@
      frm_movie_id2.val(frm_movie_id);
      frm_movie_title2.val(frm_movie_title);
      frm_plex_num2.val(frm_plex_num);
-
+	 
      frm.submit();
       
 
@@ -585,6 +585,7 @@
       cursor:pointer;
       color:red;
    }
+   
 </style>
 <% session.setAttribute("menu", null);%>
 <%@include file="./include/footer.jsp" %>

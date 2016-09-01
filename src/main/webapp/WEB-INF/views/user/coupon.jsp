@@ -46,9 +46,9 @@ td{
 		var result;
 		$("#coupon_list").html("");
 		$(data).each(function(){
-			if(this.used=='y'){
+			if(this.used=='Y'){
 				used="<font style='font-weight: bold; color: red;'>사용함</font>"
-			}else{
+			}else if(this.used=='N'){
 				used="<font style='font-weight: bold; color: blue;'>미사용</font>"
 			}
 			result += "<tr>"

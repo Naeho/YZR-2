@@ -48,10 +48,10 @@
 							<span>
 								<c:choose>
 									<c:when test="${membervo.club == '액션'}">
-										<button class="btn btn-danger" style="margin-left: 220px; margin-top20px; width: 100px; height:40px;">탈퇴하기</button>
+										<button class="btn btn-danger" style="margin-left: 250px; margin-top20px; width: 100px; height:40px;">탈퇴하기</button>
 									</c:when>
 									<c:otherwise>
-										<button class="btn btn-info" style="margin-left: 220px; margin-top20px; width: 100px; height:40px;">가입하기</button>
+										<button class="btn btn-info" style="margin-left: 250px; margin-top20px; width: 100px; height:40px;">가입하기</button>
 									</c:otherwise>
 								</c:choose>
 							</span>
@@ -74,10 +74,10 @@
 							<span>
 								<c:choose>
 									<c:when test="${membervo.club == 'VIP'}">
-										<button class="btn btn-danger" style="margin-left: 220px; margin-top20px; width: 100px; height:40px;">탈퇴하기</button>
+										<button class="btn btn-danger" style="margin-left: 265px; margin-top20px; width: 100px; height:40px;">탈퇴하기</button>
 									</c:when>
 									<c:otherwise>
-										<button class="btn btn-info" style="margin-left: 220px; margin-top20px; width: 100px; height:40px;">가입하기</button>
+										<button class="btn btn-info" style="margin-left: 265px; margin-top20px; width: 100px; height:40px;">가입하기</button>
 									</c:otherwise>
 								</c:choose>
 							</span>

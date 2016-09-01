@@ -18,7 +18,6 @@
 		
 		var form = document.getElementById("form");
 		
-		alert("success");
 		form.submit();
 	}
 	

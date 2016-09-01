@@ -151,16 +151,26 @@ public class TimetableDAOImpl implements TimetableDAO {
 		CriteriaQuery<TheaterVO> cq = cb.createQuery(TheaterVO.class);
 		Root<TheaterVO> root = cq.from(TheaterVO.class);
 		
-		Subquery<ReservationVO> subQuery = cq.subquery(ReservationVO.class);
+		CriteriaQuery<String> subQuery = cb.createQuery(String.class);
 		Root<ReservationVO> subRoot = subQuery.from(ReservationVO.class);
 		
 		subQuery.select(subRoot.get("theater_id"));
 		subQuery.where(cb.equal(subRoot.get("member_id"), member_id));
+		subQuery.groupBy(subRoot.get("theater_id"));
+		subQuery.orderBy(cb.desc(cb.count(subRoot.get("theater_id"))));
 		
-		cq.multiselect(root.get("theater_id"), root.get("theater_name"));
-		cq.where(root.get("theater_id").in(subQuery));
-		cq.groupBy(root.get("theater_id"), root.get("theater_name"));
-		cq.orderBy(cb.desc(cb.countDistinct(root.get("theater_id"))));
+		TypedQuery<String> subtq = entityManager.createQuery(subQuery);
+		List<String> sublist = subtq.getResultList();
+		
+		for(String s : sublist){
+			System.out.println("aaaaaaaaaaaa:"+s);
+		}
+		List<Predicate> pl = new ArrayList<Predicate>();
+		for(int i=0; i<sublist.size(); i++){
+			pl.add(cb.or(cb.equal(root.get("theater_id"), sublist.get(i))));
+		}
+		
+		cq.where(cb.or(pl.toArray(new Predicate[pl.size()])));
 		
 		TypedQuery<TheaterVO> tq = entityManager.createQuery(cq);
 		List<TheaterVO> list = tq.getResultList();

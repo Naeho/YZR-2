@@ -138,7 +138,7 @@ public class MovieController {
 		
 		try{
 			System.out.println("11111");
-			int viewer = movie_service.getList(movieId).getMoviegoers_cnt();
+			int viewer = movie_service.getList(movieId).getReservation_cnt();
 			int totalViewer = 0;
 			float avrReservation = 0;
 			System.out.println(viewer);
@@ -150,13 +150,13 @@ public class MovieController {
 			int movieCnt = (int)movie_service.getMovieCnt();
 			
 			for(int i = 0; i < movieCnt; i++) {
-				totalViewer += movie_service.getPlayMovieList().get(i).getMoviegoers_cnt();
+				totalViewer += movie_service.getPlayMovieList().get(i).getReservation_cnt();
 			}
 			
 			System.out.println("ÃÑ °ü°´¼ö = " + totalViewer);
 			
 			for(int i = 0; i < movieCnt; i++) {
-				avrReservation = (float)(movie_service.getPlayMovieList().get(i).getMoviegoers_cnt() / (float)totalViewer) * 100;
+				avrReservation = (float)(movie_service.getPlayMovieList().get(i).getReservation_cnt() / (float)totalViewer) * 100;
 				movie_service.updateReservationRate(movie_service.getPlayMovieList().get(i), avrReservation);
 			}
 			

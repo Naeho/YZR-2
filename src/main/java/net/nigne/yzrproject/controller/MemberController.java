@@ -61,18 +61,18 @@ public class MemberController {
 	}
 	
 								// 회원탈퇴
-	@RequestMapping(value = "user/member/delete", method =  RequestMethod.POST) 
-	public ResponseEntity<Boolean> memberDelete(@RequestParam("member_pw") String member_pw, @RequestParam("member_id") String member_id) throws Exception {
+	@RequestMapping(value = "user/member/delete", method =  RequestMethod.POST)
+	public ResponseEntity<Boolean> memberDelete(@RequestBody MemberVO vo) throws Exception {
 		ResponseEntity<Boolean> entity = null; 
+		System.out.println("123");
 		try{
-			entity = new ResponseEntity<Boolean>(service.pwCheck(member_pw, member_id),HttpStatus.OK); 
+			entity = new ResponseEntity<Boolean>(service.pwCheck(vo.getMember_pw(), vo.getMember_id()), HttpStatus.OK); 
 		}catch(Exception e){
 			entity = new ResponseEntity<Boolean>(HttpStatus.BAD_REQUEST); 
 		}
 		return entity;
 	}
-	
-							// 회원탈퇴 확정페이지로 이동
+							// 회원탈퇴 확정후 메인페이지로 이동
 	@RequestMapping(value = "/user/member/deleteConfirm", method = RequestMethod.POST) 
 	public ModelAndView memberDeleteConfirm(HttpServletRequest request, @RequestParam("pw") String pw) throws Exception {
 		ModelAndView view = new ModelAndView();
@@ -85,7 +85,7 @@ public class MemberController {
 		}catch(Exception e){
 			e.printStackTrace();
 		}
-		view.setViewName("index");
+		view.setViewName("redirect:/index");
 		return view;
 	}
 	
@@ -206,7 +206,7 @@ public class MemberController {
 	}
 	
 	@RequestMapping(value = "/member/pwcheck", method =  RequestMethod.POST) 
-	public ResponseEntity<Boolean> memberDelete(@RequestBody MemberVO vo) throws Exception {
+	public ResponseEntity<Boolean> memberPwCheck(@RequestBody MemberVO vo) throws Exception {
 		ResponseEntity<Boolean> entity = null;
 		System.out.println(vo.getAnswer());
 		try{

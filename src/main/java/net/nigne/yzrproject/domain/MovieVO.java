@@ -42,6 +42,9 @@ public class MovieVO {
 	@Column(name = "status")
 	String status;
 	
+	@Column(name = "reservation_cnt")
+	int reservation_cnt;
+	
 	public String getMovie_id() {
 		return movie_id;
 	}
@@ -107,5 +110,11 @@ public class MovieVO {
 	}
 	public void setStatus(String status) {
 		this.status = status;
+	}
+	public int getReservation_cnt() {
+		return reservation_cnt;
+	}
+	public void setReservation_cnt(int reservation_cnt) {
+		this.reservation_cnt = reservation_cnt;
 	}
 }

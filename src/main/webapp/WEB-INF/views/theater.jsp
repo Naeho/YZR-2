@@ -11,9 +11,12 @@
 			<div id="like_th_place" style="float:left; margin-top:25px; margin-left:20px;">
 				<c:forEach items="${like_th}" var="like_th" begin="0" end="4" varStatus="i">
 					<div class="th_group" style="text-align:center; line-height:50px;">
-						<span class="th_name" style="color:white; font-weight:bold; font-size:20px;" value="${like_th.theater_id}">
+						<span class="th_name t${i.index}" style="color:white; font-weight:bold; font-size:20px;">
 							${like_th.theater_name}
 						</span>
+						<input type="hidden" id="like_th_address${i.index}" name="like_th_address${i.index}" value="${like_th.theater_address}"/>
+						<input type="hidden" id="like_th_xpoint${i.index}" name="like_th_xpoint${i.index}" value="${like_th.xpoint}"/>
+						<input type="hidden" id="like_th_ypoint${i.index}" name="like_th_ypoint${i.index}" value="${like_th.ypoint}"/>
 					</div>
 				</c:forEach>
 				<c:if test="${fn:length(like_th) < 5}">
@@ -95,11 +98,14 @@
 	setTheater_name("CGV강남","서울특별시 강남구 강남대로 438 (역삼동, 스타플렉스)","127.0262446","37.5017831");
 	
 	$(".th_name").click(function(){
-		var ti = $(this).attr("value");
+		var temp = $(this).attr('class').substring(9,10);
+		
 		var tn = $(this).text();
-		$(".th_name").css("color","white");
-		$(this).css("color","red");
-		setTheater_name(tn,"dd","0","0");
+		var ta = $("#like_th_address"+temp).val();
+		var tx = $("#like_th_xpoint"+temp).val();
+		var ty = $("#like_th_ypoint"+temp).val();
+		
+		setTheater_name(tn,ta,tx,ty);
 	})
 	
 	function initialize(theater_name, address, xpoint, ypoint) {

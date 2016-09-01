@@ -114,7 +114,7 @@ public class YzrController {
       if(member_id == "" || member_id == null){
          // 기본추천영화
          List<MovieVO> rec_basic = movie_service.basicMovie();
-         List<String> basic_title = new ArrayList();
+         List<String> basic_title = new ArrayList<String>();
          
          if(!rec_basic.isEmpty()){
             basic_title.add("No.1");
@@ -221,15 +221,13 @@ public class YzrController {
             
             // movie_id 배열에 추천감독영화 movie_id가 있는지 확인
             for(MovieVO vo : rec_director){
-            	System.out.println(vo.getMovie_id());
-                if(!list_movieId.contains(vo.getMovie_id())){
+            	if(!list_movieId.contains(vo.getMovie_id())){
              	   dn = vo.getMovie_id();
              	   break;
                 }
              }
             
             String director = "";
-            
             if(dn == null){
             	rec_director_movie = movie_service.basicMovie().get(2);
             	rec_title.add("No.3");

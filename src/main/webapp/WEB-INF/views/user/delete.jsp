@@ -25,27 +25,24 @@
 <script>
 	
 	function memberDelete(){
-		var form = document.getElementById("del");
-
+		
+		
+		
 		if($("#pw").val() == null || $("#pw").val() == ""){
 			$("#pw2").html("비밀번호를 입력하세요!");
 		}else if($("#pw").val() != null || $("#pw").val() != ""){
 			$.ajax({
-				type : 'get',
+				type : 'post',
 				url : '/user/member/delete',
 				headers : {
 					"Content-Type" : "application/json",
 				},
-				data : {"member_pw" : $("#pw").val(), "member_id" : "${member_id}"},
+				data : JSON.stringify({"member_pw" : $("#pw").val(), "member_id" : "${member_id}"}),
 				dataType : 'json',
 				success : function(result){
 					if(result == true){
-						alert("success");
-						$("#pw2").html("확인되었습니다");
-						form.submit();
+						$("#del").submit();
 					}else{
-						
-						alert("fail");
 						$("#pw2").html("비밀번호가 맞지 않습니다");
 					}
 				}
@@ -60,13 +57,14 @@
 	
 		<h4>회원탈퇴 하시려면 비밀번호를 입력하세요.</h4>
 		<form id="del" name="del" action="/user/member/deleteConfirm" method="post">
-		<table>
-		<tr>
-			<td style="padding-right:10px;"><input type="password" id="pw" name="pw" class="form-control" /></td><td id="pw2" class="red" ></td>
-		</tr>
-		</table>
-		<br>
+			<table>
+				<tr>
+					<td style="padding-right:10px;"><input type="password" id="pw" name="pw" class="form-control" /></td><td id="pw2" class="red" ></td>
+				</tr>
+			</table>
 		</form>
+		
+		<br>
 		<input type="button" onclick="memberDelete()" class="btn btn-danger" value="회원탈퇴"/>
 	</div>
 </div>

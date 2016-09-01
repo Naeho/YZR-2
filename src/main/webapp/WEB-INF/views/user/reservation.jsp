@@ -87,7 +87,7 @@
 					if(this.movie_id == rm[j].movie_id){
 						
 						result += '<div style="height: 140px; width: 400px; float: left;">'
-								+ '<span style="height: 138px; width: 105px; display: block; float: left;"><a href="/movie/${r.movie_id}"><img style="height: 100%; width: 100%; vertical-align: baseline;" src="/resources/images/poster/'+rm[j].poster+'"></a></span>'
+								+ '<span style="height: 138px; width: 105px; display: block; float: left;"><a href="/movie/'+this.movie_id+'"><img style="height: 100%; width: 100%; vertical-align: baseline;" src="/resources/images/poster/'+rm[j].poster+'"></a></span>'
 								+ '<span style="height:30px; display: block; margin-left: 115px; margin-bottom: 5px; padding-top:10px; font-weight: bold;"><a href="/movie/' + this.movie_id + '">' + rm[j].title + '</a></span>'
 								+ '<span class="reservationInfo">관람극장</span>'
 								+ '<span style="height:20px; display: block; margin-left: 181px; margin-bottom: 5px;">';

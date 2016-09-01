@@ -1157,6 +1157,7 @@
 		<input type="text" id="seat6" name="seat6" size="50" maxlength="100" style="display:none;">
 		<input type="text" id="seat7" name="seat7" size="50" maxlength="100" style="display:none;">
 		<input type="text" id="seat8" name="seat8" size="50" maxlength="100" style="display:none;">
+		<input type="text" id="seat9" name="seat9" size="50" maxlength="100" style="display:none;">
 		<c:choose>
 			<c:when test="${tempInfo.dataFlag != null}">
 				<script>
@@ -1661,6 +1662,9 @@
 					$("#year"+i).css("display","block");
 					$("#year"+i).css("margin-top","25px");
 					$("#month"+i).css("display","block");
+					$("#year").css("display","none");
+					$("#month").css("display","none");
+					
 				}
 				
 				if($("#day"+i).val() == '토'){
